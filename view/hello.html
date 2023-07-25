@@ -1,0 +1,8 @@
+{% extends "template/base.html" %}
+
+{% block container %}
+<h1>User List</h1>
+<ul>
+    <li><a href="{{ url_for('profile', { 'name': 'josh' }) }}">Josh</a></li>
+</ul>
+{% endblock %}
