@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
-    <link rel="shortcut icon" href="" type="image/png">
+    <title>{{ title }}</title>
+    <link rel="shortcut icon" href="/static/res/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/res/img/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/icon/bootstrap-icons.css">
 </head>
@@ -18,6 +19,8 @@
     
     <script src="/static/js/jquery-3.7.0.min.js"></script>
     <script src="/static/js/bootstrap.bundle.min.js"></script>
+    {% block js %}
+    {% endblock %}
 </body>
 
 </html>

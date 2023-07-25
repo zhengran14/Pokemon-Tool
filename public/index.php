@@ -14,16 +14,6 @@ $app->addErrorMiddleware(true, false, false);
 $twig = Twig::create('../view', ['cache' => false]);
 $app->add(TwigMiddleware::create($app, $twig));
 
-$app->get('/', function (Request $request, Response $response, $args) {
-    $response->getBody()->write("Hello world!");
-    return $response;
-});
-
-$app->get('/hello/{name}', function ($request, $response, $args) {
-    $view = Twig::fromRequest($request);
-    return $view->render($response, 'hello.html', [
-        'name' => $args['name']
-    ]);
-})->setName('profile');
+require __DIR__ . '/pokedex.php';
 
 $app->run();
