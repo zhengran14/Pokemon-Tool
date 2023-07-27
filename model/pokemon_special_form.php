@@ -2,7 +2,6 @@
 
 require_once __DIR__ . '/../model/name_base.php';
 
-class PokemonType extends NameBase {
+class PokemonSpecialForm extends NameBase {
     public $id;
-    public $color;
 }
