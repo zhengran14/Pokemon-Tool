@@ -3,6 +3,10 @@ import os
 import time
 import json
 import pymysql
+from PIL import Image
+import cv2
+import pngquant
+from threading import Thread, current_thread
 
 def cropTypeIconFrom52poke():
     image = Image.open('res/type_icon/type_icon.webp')
@@ -1435,5 +1439,71 @@ def importPokemon():
     except pymysql.Error as e:
         print("数据库连接失败", e)
 
-
-# importPokemon()
+# sips -Z 210 *.png --out 210/
+def resizePmImgThread(imgs):
+    filePath = os.path.join(os.getcwd(), 'data/original_630/')
+    newFilePath = os.path.join(os.getcwd(), 'public/static/res/pm_img/')
+    newSizes = [
+        630,
+        315,
+        210,
+        126,
+        63,
+    ]
+    for imgName in imgs:
+        imgPath = os.path.join(filePath, imgName)
+        fileNames = os.path.splitext(imgName)
+        if (os.path.isfile(imgPath) and fileNames[1] == '.png'):
+            # print(fileNames[0])
+            # newImgPath = os.path.join(newFilePath, imgName)
+            # img = Image.open(imgPath)
+            # width, height = img.size
+            # img = img.resize((int(width / 3), int(height / 3)), Image.ANTIALIAS)
+            # img.save(newImgPath, 'PNG')
+            # img = cv2.imread(imgPath, cv2.IMREAD_UNCHANGED)
+            # h, w = img.shape[:2]
+            # new_img = cv2.resize(img, (int(w / 3),int(h / 3)), interpolation = cv2.INTER_CUBIC)
+            # cv2.imwrite(newImgPath, new_img)
+            for newSize in newSizes:
+                newImgPath = os.path.join(newFilePath, str(newSize))
+                newImgPath = os.path.join(newImgPath, imgName)
+                os.system('rm -f "{}"'.format(newImgPath))
+                if newSize != 630:
+                    os.system('sips -Z {} "{}" --out "{}"'.format(newSize, imgPath, newImgPath))
+                else:
+                    os.system('cp -f "{}" "{}"'.format(imgPath, newImgPath))
+                # pngquant.config(min_quality = 88, max_quality = 88)
+                # pngquant.quant_image(image = newImgPath, ndeep = 11)
+                os.system('pngquant --force --quality=88-88 --speed 1 "{}" --output "{}"'.format(newImgPath, newImgPath))
+            # break
+def resizePmImg():
+    filePath = os.path.join(os.getcwd(), 'data/original_630/')
+    newFilePath = os.path.join(os.getcwd(), 'public/static/res/pm_img/')
+    newSizes = [
+        630,
+        315,
+        210,
+        126,
+        63,
+    ]
+    for newSize in newSizes:
+        newImgPath = os.path.join(newFilePath, str(newSize))
+        if (not os.path.exists(newImgPath)):
+            os.system('mkdir "{}"'.format(newImgPath))
+    imgs = os.listdir(filePath)
+    imgCount = len(imgs)
+    # imgCount = 13
+    unit = (int)(imgCount / 6 + 0.5)
+    # print(unit, imgs[0:imgCount])
+    threads = []
+    for i in range(6):
+        _imgs = imgs[unit * i:((unit * (i + 1)) if i < 5 else imgCount)]
+        # print(_imgs)
+        # continue
+        thread = Thread(target = resizePmImgThread, daemon = False, kwargs = { 'imgs': _imgs })
+        thread.start()
+        threads.append(thread)
+    for thread in threads:
+        thread.join()
+    
+resizePmImg()
