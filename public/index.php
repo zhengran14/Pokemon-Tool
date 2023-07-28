@@ -15,5 +15,6 @@ $twig = Twig::create('../view', ['cache' => false]);
 $app->add(TwigMiddleware::create($app, $twig));
 
 require __DIR__ . '/pokedex.php';
+require __DIR__ . '/ribbon.php';
 
 $app->run();

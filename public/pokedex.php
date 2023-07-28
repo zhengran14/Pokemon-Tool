@@ -1,7 +1,7 @@
 <?php
 use Slim\Views\Twig;
 
-require __DIR__ . '/../util/dbconnect.php';
+require_once __DIR__ . '/../util/dbconnect.php';
 require __DIR__ . '/../model/pokemon.php';
 
 $app->get('/pokedex', function ($request, $response, $args) {
