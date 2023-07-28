@@ -1,4 +1,4 @@
-const imgUrl = '/static/res/pm_img/';
+const imgUrl = '/static/img/pm_img/';
 var currentPage = 0, totalPages = 1;
 
 $(document).ready(function () {
