@@ -1183,3 +1183,6 @@ for url in mark_imgUrls:
     if not os.path.exists(os.path.basename(url)):
         print(url)
         os.system('curl -O https:' + url)
+    else:
+        filename = os.path.basename(url)
+        os.rename(filename, filename.replace('Mark_', '').replace('_icon', ''))
