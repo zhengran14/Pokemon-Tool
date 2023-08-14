@@ -1,0 +1,15 @@
+.pm-type {
+    color: white;
+    height: 36px;
+    min-width: 80px;
+    padding: 6px 16px 6px 14px;
+}
+.pm-type img {
+    height: 24px;
+    width: auto;
+    margin: 0px 0px 4px 0px;
+}
+.pm-type span {
+    float: right;
+    line-height: 24px;
+}

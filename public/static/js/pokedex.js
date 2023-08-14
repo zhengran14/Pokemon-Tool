@@ -52,8 +52,9 @@ function getPokemons() {
                 let pokemonTypes = $('<div class="card-footer border-0 bg-transparent row row-cols-auto column-gap-1 ms-1"></div>');
                 for (const pokemonType of pokemon.pokemonTypes) {
                     pokemonTypes.append(`
-                        <span class="badge rounded-pill fs-5 fw-normal" style="background-color: ${pokemonType.color}">
-                            <span class="m-0 m-lg-3">${pokemonType.name_zh_cn}</span>
+                        <span class="pm-type rounded-pill" style="background-color: ${pokemonType.color}">
+                            <img src="/static/img/type_icon/${pokemonType.name_en}.webp" alt="${pokemonType.name_en}">
+                            <span>${pokemonType.name_zh_cn}</span>
                         </span>`);
                 }
                 div.find('.card-body').after(pokemonTypes);
