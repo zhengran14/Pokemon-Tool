@@ -1,3 +1,13 @@
+.user-select-none {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.focus-outline-none:focus {
+    outline: none;
+}
+
 .pm-type {
     color: white;
     height: 36px;
